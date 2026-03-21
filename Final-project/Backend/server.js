@@ -4,7 +4,7 @@ const cors = require("cors");
 const connectdb = require("./config/db");
 const authroutes = require("./routes/authRoutes");
 const productroutes = require("./routes/productroutes");
-
+const orderroutes = require("./routes/orderRoutes");
 dotenv.config();
 
 const app = express();
@@ -16,6 +16,7 @@ connectdb();
 
 app.use("/api/auth", authroutes);
 app.use("/api/pro",productroutes);
+app.use("/api/orders",orderroutes)
 
 app.get("/", (req, res) => {
   res.send("api is working");

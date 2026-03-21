@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Producttable = ({ products, handleEdit, handleDelete }) => {
+const Producttable = ({ products, handleEdit, handleDelete,addToCart }) => {
   return (
     <div className="card shadow-sm border-0">
       <div className="card-body p-4">
@@ -19,6 +19,7 @@ const Producttable = ({ products, handleEdit, handleDelete }) => {
                   <th>Product Name</th>
                   <th>Product Price</th>
                   <th width="180">Action</th>
+                  <th>Cart</th>
                 </tr>
               </thead>
 
@@ -41,6 +42,14 @@ const Producttable = ({ products, handleEdit, handleDelete }) => {
                         onClick={() => handleDelete(product._id)}
                       >
                         Delete
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-sm btn-success"
+                        onClick={() => addToCart(product)}
+                      >
+                        Add To Cart
                       </button>
                     </td>
                   </tr>

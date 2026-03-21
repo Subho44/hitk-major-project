@@ -5,6 +5,8 @@ import Login from './pages/Login'
 import PrivateRoute from './utils/PrivateRoute'
 import Home from './pages/Home'
 import Navbar from './components/Navbar'
+import Cart from './pages/Cart'
+import Orders from './pages/Orders'
 
 const App = () => {
   return <>
@@ -17,6 +19,8 @@ const App = () => {
 
      <Route element={<PrivateRoute/>}>
      <Route path='/home' element={<Home/>}></Route>
+      <Route path='/cart' element={<Cart/>}></Route>
+       <Route path='/orders' element={<Orders/>}></Route>
      </Route>
   </Routes>
   

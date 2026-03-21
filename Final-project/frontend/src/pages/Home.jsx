@@ -106,6 +106,23 @@ const Home = () => {
     setMessage('')
     setError('')
   }
+  //addtocart
+  const addToCart = (product)=>{
+    let cart = JSON.parse(localStorage.getItem('cart')) || []
+    const existing = cart.find((x)=>x._id ===product._id)
+    if(existing) {
+      cart = cart.map((item)=>
+      item._id === product._id
+      ? {...item, quantity:item.quantity +1}
+      : item
+      )
+    } else {
+      cart.push({...product, quantity:1})
+    }
+    localStorage.setItem('cart',JSON.stringify(cart))
+    setMessage(`${product.name} added to cart`)
+    window.location.reload()
+  }
 
   return (
     <div className="container py-4">
@@ -138,6 +155,7 @@ const Home = () => {
             products={products}
             handleEdit={handleEdit}
             handleDelete={handleDelete}
+            addToCart={addToCart}
           />
         </div>
       </div>
