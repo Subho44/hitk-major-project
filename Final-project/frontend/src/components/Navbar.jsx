@@ -1,50 +1,68 @@
-import React from 'react'
-import {Link,useNavigate} from "react-router-dom";
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    const navigate = useNavigate();
-    const token = localStorage.getItem('token');
-    const cart = JSON.parse(localStorage.getItem('cart')) || []
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('cart');
+    navigate('/login');
+  };
 
-    const hl = ()=>{
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        localStorage.removeItem('cart');
-        navigate('/login');
-    }
+  return (
+    <nav className='navbar navbar-expand-lg navbar-dark bg-dark shadow-sm'>
+      <div className='container'>
+        <Link className='navbar-brand font-weight-bold' to={token ? '/home' : '/'}>
+          MERN Shop
+        </Link>
 
-  return <>
-  <div className='container-fluid'>
-    <ul className='nav float-right'>
-        <li>
-            <Link to='/' className='nav-link'>Register</Link>
-        </li>
-        <li>
-            <Link to='/login' className='nav-link'>Login</Link>
-        </li>
+        <button
+          className='navbar-toggler'
+          type='button'
+          data-toggle='collapse'
+          data-target='#navbarNav'
+        >
+          <span className='navbar-toggler-icon'></span>
+        </button>
 
-        {token && (
-            <>
-             <li>
-            <Link to='/home' className='nav-link'>Home</Link>
-             </li>
-              <li>
-            <Link to='/cart' className='nav-link'>Cart ({cart.length})</Link>
-             </li>
-              <li>
-            <Link to='/orders' className='nav-link'>Orders</Link>
-             </li>
-            <button className='btn btn-dark btn-sm' onClick={hl}>Logout</button>
-            </>
-        )}
-    </ul>
+        <div className='collapse navbar-collapse' id='navbarNav'>
+          <ul className='navbar-nav ml-auto align-items-lg-center'>
+            {!token ? (
+              <>
+                <li className='nav-item'>
+                  <Link to='/' className='nav-link'>Register</Link>
+                </li>
+                <li className='nav-item'>
+                  <Link to='/login' className='nav-link'>Login</Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className='nav-item'>
+                  <Link to='/home' className='nav-link'>Home</Link>
+                </li>
+                <li className='nav-item'>
+                  <Link to='/cart' className='nav-link'>Cart ({cart.length})</Link>
+                </li>
+                <li className='nav-item'>
+                  <Link to='/orders' className='nav-link'>Orders</Link>
+                </li>
+                <li className='nav-item ml-lg-2 mt-2 mt-lg-0'>
+                  <button className='btn btn-danger btn-sm' onClick={handleLogout}>
+                    Logout
+                  </button>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  );
+};
 
-
-  </div>
-  
-  
-  </>
-}
-
-export default Navbar
+export default Navbar;
